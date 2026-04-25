@@ -1,0 +1,27 @@
+h1 {
+  color: red;
+}
+
+p {
+  color: blue;
+  text-align: right;
+}
+
+.titulo {
+  color: chartreuse;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 30px;
+  background-color: red;
+}
+
+#tabela-01 {
+  color: darkkhaki;
+  background-color:bisque;
+  width: 500px;
+  border:2px dashed black;
+}
+
+
+p a { font-size: 24px; }
