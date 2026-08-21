@@ -13,6 +13,8 @@
 
 ## Exercício 1
 
-- criar uma tabela e preencher os dados: id,nome,telefone,cpf,email,data_hora_criacao,ativo, <editar>
-- criar uma coluna nessa tabela para abrir uma pagina em uma nova aba do navegador
+- fazer git pull para trazer a aula 009
+- editar os arquivos para executar o exercicio esperado abaixo
+- alterar tabela p/ preencher os dados: id,nome,telefone,cpf,email,data_hora_criacao,ativo, <editar>
+- alterar uma coluna nessa tabela para abrir uma pagina em uma nova aba do navegador
 
