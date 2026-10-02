@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png"
+    />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen" />
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico"
+    />
+
+    <link
+      rel="mask-icon"
+      type="image/x-icon"
+      href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg"
+      color="#111"
+    />
+
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+
+    <title>JS Form Validation</title>
+
+    <link
+      rel="canonical"
+      href="https://codepen.io/AbdullahSajjad/pen/LYGVRgK"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
+      :root {
+        --succes-color: #2ecc71;
+        --error-color: #e74c3c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #f9fafb;
+        font-family: "Open Sans", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        width: 600px;
+      }
+
+      h2 {
+        text-align: center;
+        margin: 0 0 20px;
+      }
+
+      .form {
+        padding: 30px 40px;
+      }
+
+      .form-control {
+        margin-bottom: 10px;
+        padding-bottom: 20px;
+        position: relative;
+      }
+
+      .form-control label {
+        color: #777;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .form-control input {
+        border: 2px solid #f0f0f0;
+        border-radius: 4px;
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      .form-control input:focus {
+        outline: 0;
+        border-color: #777;
+      }
+
+      .form-control.success input {
+        border-color: var(--succes-color);
+      }
+
+      .form-control.error input {
+        border-color: var(--error-color);
+      }
+
+      .form-control small {
+        color: var(--error-color);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        visibility: hidden;
+      }
+
+      .form-control.error small {
+        visibility: visible;
+      }
+
+      .form button {
+        cursor: pointer;
+        background-color: #3498db;
+        border: 2px solid #3498db;
+        border-radius: 4px;
+        color: #fff;
+        display: block;
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 20px;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      window.console = window.console || function (t) {};
+    </script>
+  </head>
+
+  <body translate="no">
+    <div class="container">
+      <form id="form" class="form">
+        <h2>Cadastre-se</h2>
+        <div class="form-control">
+          <label for="nome">Nome</label>
+          <input
+            type="text"
+            name="nome"
+            id="nome"
+            placeholder="Escreva seu nome"
+          />
+          <small>Error Message</small>
+        </div>
+        <div class="form-control">
+          <label for="telefone">Telefone</label>
+          <input
+            type="text"
+            name="telefone"
+            id="telefone"
+            placeholder="Escreva seu telefone"
+          />
+          <small>Error Message</small>
+        </div>
+
+        <div class="form-control">
+          <label for="Cpf">Cpf</label>
+          <input type="text" name="cpf" id="cpf" placeholder="Escreva seu Cpf" />
+          <small>Error Message</small>
+        </div>
+
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" placeholder="Enter email" />
+          <small>Error Message</small>
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter password" />
+          <small>Error Message</small>
+        </div>
+        <div class="form-control">
+          <label for="password2">Confirm Password</label>
+          <input
+            type="password"
+            id="password2"
+            placeholder="Enter password again"
+          />
+          <small>Error Message</small>
+        </div>
+        <button>Submit</button>
+      </form>
+    </div>
+
+    <script id="rendered-js">
+      const form = document.getElementById("form");
+      const nome = document.getElementById("nome");
+      const telefone = document.getElementById("telefone");
+      const cpf = document.getElementById("cpf");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const password2 = document.getElementById("password2");
+
+      const telRegex = /^\(?\d{2}\)? ?\d{4,5}-?\d{4}$/;
+      const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function validarNome(input) {
+        if (input.value.trim().length < 3) {
+          showError(input, "nome é menor que 3");
+        } else {
+          showSucces(input);
+        }
+      }
+
+      function validarTelefone(input) {
+        if (telRegex.test(input.value)) {
+          showSucces(input);
+        } else {
+          showError(input, "telefone formato invalido");
+        }
+      }
+
+      function validarCPF(input) {
+        if (cpfRegex.test(input.value)) {
+          showSucces(input);
+        } else {
+          showError(
+            input,
+            'O CPF deve conter 11 dígitos no formato XXX.XXX.XXX-XX"'
+          );
+        }
+      }
+
+      //check email is valid
+      function checkEmail(input) {
+        if (emailRegex.test(input.value.trim())) {
+          showSucces(input);
+        } else {
+          showError(input, "Email formato invalido");
+        }
+      }
+
+      //Show input error messages
+      function showError(input, message) {
+        const formControl = input.parentElement;
+        formControl.className = "form-control error";
+        const small = formControl.querySelector("small");
+        small.innerText = message;
+      }
+
+      //show success colour
+      function showSucces(input) {
+        const formControl = input.parentElement;
+        formControl.className = "form-control success";
+      }
+
+      //checkRequired fields
+      function checkRequired(inputArr) {
+        inputArr.forEach(function (input) {
+          if (input.value.trim() === "") {
+            showError(input, `${getFieldName(input)} is required`);
+          } else {
+            showSucces(input);
+          }
+        });
+      }
+
+      //check input Length
+      function checkLength(input, min, max) {
+        if (input.value.length < min) {
+          showError(
+            input,
+            `${getFieldName(input)} must be at least ${min} characters`
+          );
+        } else if (input.value.length > max) {
+          showError(
+            input,
+            `${getFieldName(input)} must be les than ${max} characters`
+          );
+        } else {
+          showSucces(input);
+        }
+      }
+
+      //get FieldName
+      function getFieldName(input) {
+        return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+      }
+
+      // check passwords match
+      function checkPasswordMatch(input1, input2) {
+        if (input1.value !== input2.value) {
+          showError(input2, "Passwords do not match");
+        }
+      }
+
+      //Event Listeners
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        validarNome(nome);
+        validarTelefone(telefone);
+        validarCPF(cpf);
+        checkRequired([nome, email, password, password2]);
+        checkLength(nome, 3, 15);
+        checkLength(password, 6, 25);
+        checkEmail(email);
+        checkPasswordMatch(password, password2);
+
+        e.preventDefault();
+
+        // enviar dados para servidor
+        var formData = new FormData(form);
+        fetch("/envioformulario", {
+          method: "POST",
+          body: formData,
+        })
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            alert(JSON.stringify(data));
+          });
+      });
+    </script>
+  </body>
+</html>
